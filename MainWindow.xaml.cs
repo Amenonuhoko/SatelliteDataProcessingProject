@@ -48,7 +48,7 @@ namespace SatelliteDataProcessingProject
         // Declare an instance of the Galileo library in the method and create the appropriate loop construct to populate the two LinkedList; the data from Sensor A will populate the first LinkedList, while the data from Sensor B will populate the second LinkedList.
         // The LinkedList size will be hardcoded inside the method and must be equal to 400.
         // The input parameters are empty, and the return type is void.
-        private void LoadData()
+        private void LoadData(int mu, int sigma)
         {
             ReadData readData= new ReadData();
 
@@ -60,9 +60,9 @@ namespace SatelliteDataProcessingProject
 
             for(int i = 0; i < maxPopSize; i++)
             {
-                double dataA = readData.SensorA(10, 2.5);
+                double dataA = readData.SensorA(mu, sigma);
                 sensorA.AddLast(dataA);
-                double dataB = readData.SensorB(10, 2.5);
+                double dataB = readData.SensorB(mu, sigma);
                 sensorB.AddLast(dataB);
             }
             //foreach(double data in  sensorA)
