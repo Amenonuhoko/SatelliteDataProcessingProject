@@ -5,9 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SatelliteDataProcessingProject"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="506" Width="923">
     <Grid>
-        <ListBox x:Name="exampleListBox" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="42,44,607,82"/>
+        <Button Content="Load Sensor Data" HorizontalAlignment="Left" Margin="34,67,0,0" VerticalAlignment="Top" Width="151" Height="27" Click="Button_Click_1"/>
+        <Label Content="Sensor A" HorizontalAlignment="Left" Margin="239,22,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Search Target" HorizontalAlignment="Left" Margin="240,60,0,0" VerticalAlignment="Top" Width="119"/>
+        <Label Content="Binary Search Iterative" HorizontalAlignment="Left" Margin="239,130,0,0" VerticalAlignment="Top" Width="146"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="239,156,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
+        <Label Content="Binary Search Recursive" HorizontalAlignment="Left" Margin="240,184,0,0" VerticalAlignment="Top" Width="146"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="240,210,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
+        <Label Content="Selection Sort" HorizontalAlignment="Left" Margin="239,273,0,0" VerticalAlignment="Top" Width="146"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="239,299,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
+        <Label Content="Insertion Sort" HorizontalAlignment="Left" Margin="239,327,0,0" VerticalAlignment="Top" Width="146"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="239,353,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
+        <Label Content="Sensor B" HorizontalAlignment="Left" Margin="586,22,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Search Target" HorizontalAlignment="Left" Margin="587,60,0,0" VerticalAlignment="Top" Width="119"/>
+        <Label Content="Binary Search Iterative" HorizontalAlignment="Left" Margin="586,130,0,0" VerticalAlignment="Top" Width="146"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="586,156,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
+        <Label Content="Binary Search Recursive" HorizontalAlignment="Left" Margin="587,184,0,0" VerticalAlignment="Top" Width="146"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="587,210,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
+        <Label Content="Selection Sort" HorizontalAlignment="Left" Margin="586,273,0,0" VerticalAlignment="Top" Width="146"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="586,299,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
+        <Label Content="Insertion Sort" HorizontalAlignment="Left" Margin="586,327,0,0" VerticalAlignment="Top" Width="146"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="586,353,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="385,0,372,0" Height="333" VerticalAlignment="Center"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="722,0,0,0" HorizontalAlignment="Left" Width="165" Height="335" VerticalAlignment="Center"/>
+        <ListView x:Name="lstVSensorData" Margin="12,99,0,66" HorizontalAlignment="Left" Width="195">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Sensor A" DisplayMemberBinding="{Binding Value1}" />
+                    <GridViewColumn Header="Sensor B" DisplayMemberBinding="{Binding Value2}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 </Window>
