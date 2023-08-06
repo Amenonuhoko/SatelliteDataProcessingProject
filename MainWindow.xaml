@@ -15,9 +15,9 @@
         <Label Content="Binary Search Recursive" HorizontalAlignment="Left" Margin="240,184,0,0" VerticalAlignment="Top" Width="146"/>
         <Button Content="Search" HorizontalAlignment="Left" Margin="240,210,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
         <Label Content="Selection Sort" HorizontalAlignment="Left" Margin="239,273,0,0" VerticalAlignment="Top" Width="146"/>
-        <Button Content="Search" HorizontalAlignment="Left" Margin="239,299,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
+        <Button x:Name="btnSelectionSort" Content="Sort" HorizontalAlignment="Left" Margin="239,299,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="btnSelectionSort_Click"/>
         <Label Content="Insertion Sort" HorizontalAlignment="Left" Margin="239,327,0,0" VerticalAlignment="Top" Width="146"/>
-        <Button Content="Search" HorizontalAlignment="Left" Margin="239,353,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
+        <Button x:Name="btnInsertionSort" Content="Sort" HorizontalAlignment="Left" Margin="239,353,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="btnInsertionSort_Click"/>
         <Label Content="Sensor B" HorizontalAlignment="Left" Margin="586,22,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label Content="Search Target" HorizontalAlignment="Left" Margin="587,60,0,0" VerticalAlignment="Top" Width="119"/>
         <Label Content="Binary Search Iterative" HorizontalAlignment="Left" Margin="586,130,0,0" VerticalAlignment="Top" Width="146"/>
@@ -25,12 +25,12 @@
         <Label Content="Binary Search Recursive" HorizontalAlignment="Left" Margin="587,184,0,0" VerticalAlignment="Top" Width="146"/>
         <Button Content="Search" HorizontalAlignment="Left" Margin="587,210,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
         <Label Content="Selection Sort" HorizontalAlignment="Left" Margin="586,273,0,0" VerticalAlignment="Top" Width="146"/>
-        <Button Content="Search" HorizontalAlignment="Left" Margin="586,299,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
+        <Button Content="Sort" HorizontalAlignment="Left" Margin="586,299,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
         <Label Content="Insertion Sort" HorizontalAlignment="Left" Margin="586,327,0,0" VerticalAlignment="Top" Width="146"/>
-        <Button Content="Search" HorizontalAlignment="Left" Margin="586,353,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="385,0,372,0" Height="333" VerticalAlignment="Center"/>
+        <Button Content="Sort" HorizontalAlignment="Left" Margin="586,353,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
+        <ListBox x:Name="lbSensorA" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="385,0,372,0" Height="333" VerticalAlignment="Center"/>
         <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="722,0,0,0" HorizontalAlignment="Left" Width="165" Height="335" VerticalAlignment="Center"/>
-        <ListView x:Name="lstVSensorData" Margin="12,99,0,66" HorizontalAlignment="Left" Width="195">
+        <ListView x:Name="lvSensorData" Margin="12,99,0,66" HorizontalAlignment="Left" Width="195">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Sensor A" DisplayMemberBinding="{Binding Value1}" />
