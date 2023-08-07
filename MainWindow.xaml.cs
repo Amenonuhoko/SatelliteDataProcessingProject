@@ -23,6 +23,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
+using Xceed.Wpf.Toolkit;
 using Galileo6;
 
 /// SatelliteDataProcessingProject
@@ -60,15 +61,16 @@ namespace SatelliteDataProcessingProject
 		// the data from Sensor A will populate the first LinkedList, while the data from Sensor B will populate the second LinkedList.
 		// The LinkedList size will be hardcoded inside the method and must be equal to 400.
 		// The input parameters are empty, and the return type is void.
-		private void LoadData(int mu, int sigma)
+		private void LoadData()
 		{
 			ReadData readData= new ReadData();
-			
+			double mu = Convert.ToDouble(nsMu.Value);
+			double sigma = Convert.ToDouble(nsSigma.Value);
+
 			int maxPopSize = 400;
 
 			for(int i = 0; i < maxPopSize; i++)
 			{
-				// TODO Change the input method
 				double dataA = readData.SensorA(mu, sigma);
 				sensorA.AddFirst(dataA);
 				double dataB = readData.SensorB(mu, sigma);
@@ -94,9 +96,9 @@ namespace SatelliteDataProcessingProject
 
 		// 4.4	Create a button and associated click method that will call the LoadData and ShowAllSensorData methods.
 		// The input parameters are empty, and the return type is void.
-		private void Button_Click_1(object sender, RoutedEventArgs e)
+		private void btnLoadSensorData_Click(object sender, RoutedEventArgs e)
 		{
-			LoadData(10,75);
+			LoadData();
 			ShowAllSensorData();
 		}
 		#endregion
@@ -124,76 +126,210 @@ namespace SatelliteDataProcessingProject
 		#region SortAndSearchMethods
 		// 4.7	Create a method called “SelectionSort” which has a single input parameter of type LinkedList, while the calling code argument is the linkedlist name.
 		// The method code must follow the pseudo code supplied below in the Appendix. The return type is Boolean.
-		private void SelectionSort(LinkedList<Double> sensor)
+		private bool SelectionSort(LinkedList<Double> sensor)
 		{
-			// TODO add try catch
-            int min = 0;
-			int max = NumberOfNodes(sensor);
-			for (int i = 0; i < max - 1; i++)
+			try
 			{
-                min = i;
-                for (int j = i + 1; j < max; j++)
-				{
-                    if (sensor.ElementAt(j) < sensor.ElementAt(min))
-					{
-                        min = j;
+                int min = 0;
+                int max = NumberOfNodes(sensor);
+                for (int i = 0; i < max - 1; i++)
+                {
+                    min = i;
+                    for (int j = i + 1; j < max; j++)
+                    {
+                        if (sensor.ElementAt(j) < sensor.ElementAt(min))
+                        {
+                            min = j;
+                        }
                     }
-                        
-                }
-				LinkedListNode<double>? currentMin = sensor.Find(sensor.ElementAt(min));
-				LinkedListNode<double>? currentI = sensor.Find(sensor.ElementAt(i));
+                    LinkedListNode<double>? currentMin = sensor.Find(sensor.ElementAt(min));
+                    LinkedListNode<double>? currentI = sensor.Find(sensor.ElementAt(i));
 
-				var temp = currentMin.Value;
-				currentMin.Value = currentI.Value;
-				currentI.Value = temp;
+                    var temp = currentMin.Value;
+                    currentMin.Value = currentI.Value;
+                    currentI.Value = temp;
+                }
+				return true;
             }
-			
+            catch (Exception ex)
+			{
+				
+				return false;
+			}
         }
 
         // 4.8	Create a method called “InsertionSort” which has a single parameter of type LinkedList, while the calling code argument is the linkedlist name.
         // The method code must follow the pseudo code supplied below in the Appendix.The return type is Boolean.
-		private void InsertionSort(LinkedList<Double> sensor)
+		private bool InsertionSort(LinkedList<Double> sensor)
 		{
-			// TODO add try catch
-			int max = NumberOfNodes(sensor);
-			for (int i = 0; i < max - 1; i++)
+			try
 			{
-				for (int j = i + 1; j > 0; j--)
-				{
-					if (sensor.ElementAt(j - 1) < sensor.ElementAt(j))
-					{
-						LinkedListNode<Double>? current = sensor.Find(sensor.ElementAt(j));
-						LinkedListNode<Double>? previous = sensor.Find(sensor.ElementAt(j - 1));	
-						double temp = current.Value;
-						current.Value = sensor.ElementAt(j - 1);
-						previous.Value = temp;
-					}
-				}
-			}
+                int max = NumberOfNodes(sensor);
+                for (int i = 0; i < max - 1; i++)
+                {
+                    for (int j = i + 1; j > 0; j--)
+                    {
+                        if (sensor.ElementAt(j - 1) < sensor.ElementAt(j))
+                        {
+                            LinkedListNode<Double>? current = sensor.Find(sensor.ElementAt(j));
+                            LinkedListNode<Double>? previous = sensor.Find(sensor.ElementAt(j - 1));
+                            double temp = current.Value;
+                            current.Value = sensor.ElementAt(j - 1);
+                            previous.Value = temp;
+                        }
+                    }
+                }
+				return true;
+            }
+			catch (Exception ex)
+			{
+                Debug.WriteLine(ex.ToString());
+				return false;
+            }
+			
 		}
 
         // 4.9	Create a method called “BinarySearchIterative” which has the following four parameters: LinkedList, SearchValue, Minimum and Maximum.
         // This method will return an integer of the linkedlist element from a successful search or the nearest neighbour value.
         // The calling code argument is the linkedlist name, search value, minimum list size and the number of nodes in the list.
         // The method code must follow the pseudo code supplied below in the Appendix.
+		private int BinarySearchIterative(LinkedList<Double> selectedList, int sVal, int min, int max)
+		{
+            int count = 0;
+            while (min <= max - 1)
+			{
+                int middle = (min + max) / 2;
+				if (sVal == selectedList.ElementAt(middle) ) 
+				{
+                    return ++middle; 
+				}
+                else if (sVal <  selectedList.ElementAt(middle)) 
+				{
+                    max = middle - 1; 
+				}
+				else 
+				{
+					min = middle + 1; 
+				}
+                count++;
+            }
+            return min;
+		}
 
         // 4.10	Create a method called “BinarySearchRecursive” which has the following four parameters: LinkedList, SearchValue, Minimum and Maximum.
         // This method will return an integer of the linkedlist element from a successful search or the nearest neighbour value.
         // The calling code argument is the linkedlist name, search value, minimum list size and the number of nodes in the list.
         // The method code must follow the pseudo code supplied below in the Appendix.
-
+		private int BinarySearchRecursive(LinkedList<Double> selectedList, int sVal, int min, int max)
+		{
+			if (min <= max - 1)
+			{
+				int middle = (min + max) / 2;
+				if (sVal == selectedList.ElementAt(middle)) { return middle; }
+				else if (sVal < selectedList.ElementAt(middle)) { return BinarySearchRecursive(selectedList, sVal, min, middle - 1); }
+				else { return BinarySearchRecursive(selectedList, sVal, middle + 1, max); }
+			}
+			return min;
+		}
         #endregion
 
         #region UIButtonMethods
         // 4.11	Create four button click methods that will search the LinkedList for an integer value entered into a textbox on the form. The four methods are:
         // 1.	Method for Sensor A and Binary Search Iterative
+        private void btnBinarySearchIterative_Click(object sender, RoutedEventArgs e)
+        {
+            SelectionSort(sensorA);
+            Stopwatch sw = new Stopwatch();
+			int result = -1;
+			int sVal = Int32.Parse(tbSensorASearch.Text);
 
-        // 2.	Method for Sensor A and Binary Search Recursive
+            sw.Start();
+			result = BinarySearchIterative(sensorA, sVal , 0, NumberOfNodes(sensorA));
+            if (result > -1)
+			{
+				sw.Stop();
+                tbBinarySearchIterativeStopWatch.Text = sw.ElapsedMilliseconds.ToString() + "ms";
+                DisplayListboxData(sensorA, lbSensorA);
+                HighlightSearch(result);
+            }
+            sw.Reset();
+        }
+		// 2.	Method for Sensor A and Binary Search Recursive
+		private void btnBinarySearchRecursive_Click(object sender, RoutedEventArgs e)
+        {
+            SelectionSort(sensorA);
+            Stopwatch sw = new Stopwatch();
+            int result = -1;
+            int sVal = Int32.Parse(tbSensorASearch.Text);
+
+            sw.Start();
+            result = BinarySearchRecursive(sensorA, sVal, 0, NumberOfNodes(sensorA));
+            if (result > -1)
+            {
+                sw.Stop();
+                tbBinarySearchRecursiveStopWatch.Text = sw.ElapsedMilliseconds.ToString() + "ms";
+                DisplayListboxData(sensorA, lbSensorA);
+                HighlightSearch(result);
+            }
+            sw.Reset();
+        }
         // 3.	Method for Sensor B and Binary Search Iterative
+        //
+        // TODO
+        //
         // 4.	Method for Sensor B and Binary Search Recursive
+        //
+        // TODO
+        //
         // The search code must check to ensure the data is sorted, then start a stopwatch before calling the search method.
         // Once the search is complete the stopwatch will stop, and the number of ticks will be displayed in a read only textbox.
         // Finally, the code/method will call the “DisplayListboxData” method and highlight the search target number and two values on each side.
+        private void HighlightSearch(int result)
+		{
+            lbSensorA.UnselectAll();
+            lbSensorA.Focus();
+            if (result == 0)
+            {
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result]);
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result + 1]);
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result + 2]);
+            }
+			else if (result == 1)
+			{
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result - 1]);
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result]);
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result + 1]);
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result + 2]);
+            }
+			else if (result == NumberOfNodes(sensorA) - 2)
+			{
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result - 2]);
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result - 1]);
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result]);
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result + 1]);
+            }
+            else if (result == NumberOfNodes(sensorA) - 1)
+            {
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result - 2]);
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result - 1]);
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result]);
+            }
+			else if (result == NumberOfNodes(sensorA))
+			{
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result - 2]);
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result - 1]);
+            }
+            else
+            {
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result - 2]);
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result - 1]);
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result]);
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result + 1]);
+                lbSensorA.SelectedItems.Add(lbSensorA.Items[result + 2]);
+            }
+
+			
+        }
 
         //4.12	Create four button click methods that will sort the LinkedList using the Selection and Insertion methods.The four methods are:
         //1.	Method for Sensor A and Selection Sort
@@ -210,18 +346,34 @@ namespace SatelliteDataProcessingProject
 			DisplayListboxData(sensorA, lbSensorA);
         }
         //3.	Method for Sensor B and Selection Sort
+        //
+        // TODO
+        //
         //4.	Method for Sensor B and Insertion Sort
+        //
+        // TODO
+        //
         //The button method must start a stopwatch before calling the sort method.
         //Once the sort is complete the stopwatch will stop, and the number of milliseconds will be displayed in a read only textbox.
         //Finally, the code/method will call the “ShowAllSensorData” method and “DisplayListboxData” for the appropriate sensor.
+        //
+        // TODO
+        //
+
 
         //4.13	Add two numeric input controls for Sigma and Mu.The value for Sigma must be limited with a minimum of 10 and a maximum of 20.
         //Set the default value to 10. The value for Mu must be limited with a minimum of 35 and a maximum of 75. Set the default value to 50.
-
         //4.14	Add two textboxes for the search value; one for each sensor, ensure only numeric integer values can be entered.
+        //
+        // TODO
+        //
 
         //4.15	All code is required to be adequately commented.Map the programming criteria and features to your code/methods by adding comments/regions above the method signatures.
         //Ensure your code is compliant with the CITEMS coding standards (refer http://www.citems.com.au/).
+        //
+        // TODO
+        //
+
 
         #endregion
 

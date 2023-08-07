@@ -4,16 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SatelliteDataProcessingProject"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="MainWindow" Height="506" Width="923">
     <Grid>
-        <Button Content="Load Sensor Data" HorizontalAlignment="Left" Margin="34,67,0,0" VerticalAlignment="Top" Width="151" Height="27" Click="Button_Click_1"/>
+        <Button x:Name="btnLoadSensorData" Content="Load Sensor Data" HorizontalAlignment="Left" Margin="27,98,0,0" VerticalAlignment="Top" Width="195" Height="27" Click="btnLoadSensorData_Click"/>
         <Label Content="Sensor A" HorizontalAlignment="Left" Margin="239,22,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label Content="Search Target" HorizontalAlignment="Left" Margin="240,60,0,0" VerticalAlignment="Top" Width="119"/>
         <Label Content="Binary Search Iterative" HorizontalAlignment="Left" Margin="239,130,0,0" VerticalAlignment="Top" Width="146"/>
-        <Button Content="Search" HorizontalAlignment="Left" Margin="239,156,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
+        <Button x:Name="btnBinarySearchIterative" Content="Search" HorizontalAlignment="Left" Margin="239,156,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="btnBinarySearchIterative_Click"/>
         <Label Content="Binary Search Recursive" HorizontalAlignment="Left" Margin="240,184,0,0" VerticalAlignment="Top" Width="146"/>
-        <Button Content="Search" HorizontalAlignment="Left" Margin="240,210,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
+        <Button x:Name="btnBinarySearchRecursive" Content="Search" HorizontalAlignment="Left" Margin="240,210,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="btnBinarySearchRecursive_Click"/>
         <Label Content="Selection Sort" HorizontalAlignment="Left" Margin="239,273,0,0" VerticalAlignment="Top" Width="146"/>
         <Button x:Name="btnSelectionSort" Content="Sort" HorizontalAlignment="Left" Margin="239,299,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="btnSelectionSort_Click"/>
         <Label Content="Insertion Sort" HorizontalAlignment="Left" Margin="239,327,0,0" VerticalAlignment="Top" Width="146"/>
@@ -28,9 +29,9 @@
         <Button Content="Sort" HorizontalAlignment="Left" Margin="586,299,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
         <Label Content="Insertion Sort" HorizontalAlignment="Left" Margin="586,327,0,0" VerticalAlignment="Top" Width="146"/>
         <Button Content="Sort" HorizontalAlignment="Left" Margin="586,353,0,0" VerticalAlignment="Top" Height="23" Width="48" Click="Button_Click"/>
-        <ListBox x:Name="lbSensorA" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="385,0,372,0" Height="333" VerticalAlignment="Center"/>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="722,0,0,0" HorizontalAlignment="Left" Width="165" Height="335" VerticalAlignment="Center"/>
-        <ListView x:Name="lvSensorData" Margin="12,99,0,66" HorizontalAlignment="Left" Width="195">
+        <ListBox x:Name="lbSensorA" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="385,0,0,0" Height="333" VerticalAlignment="Center" HorizontalAlignment="Left" Width="166" SelectionMode="Multiple"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="722,0,0,0" Height="335" VerticalAlignment="Center" HorizontalAlignment="Left" Width="165"/>
+        <ListView x:Name="lvSensorData" Margin="27,130,0,66" HorizontalAlignment="Left" Width="195">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Sensor A" DisplayMemberBinding="{Binding Value1}" />
@@ -38,6 +39,13 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <xctk:IntegerUpDown x:Name="nsSigma" Value="10" Margin="27,59,0,0" Watermark="10" Height="27" VerticalAlignment="Top" Minimum="10" Maximum="20" HorizontalAlignment="Left" Width="80" />
+        <xctk:IntegerUpDown x:Name="nsMu" Value="50" Margin="141,59,0,0" Watermark="50" Height="27" VerticalAlignment="Top" Minimum="35" Maximum="75" HorizontalAlignment="Left" Width="80" />
+        <Label Content="Sigma" HorizontalAlignment="Left" Margin="64,27,0,0" VerticalAlignment="Top"/>
+        <Label Content="Mu" HorizontalAlignment="Left" Margin="141,27,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbSensorASearch" HorizontalAlignment="Left" Margin="240,86,0,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Width="120" Height="26"/>
+        <TextBox x:Name="tbBinarySearchIterativeStopWatch" HorizontalAlignment="Left" Margin="300,156,0,0" TextWrapping="Wrap" Text="n/a" VerticalAlignment="Top" Width="59" Height="23"/>
+        <TextBox x:Name="tbBinarySearchRecursiveStopWatch" HorizontalAlignment="Left" Margin="301,210,0,0" TextWrapping="Wrap" Text="n/a" VerticalAlignment="Top" Width="59" Height="23"/>
 
     </Grid>
 </Window>
